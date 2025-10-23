@@ -19,16 +19,18 @@ export default function DoctorsList({ doctors }) {
                 key={doctor.id}
                 className="bg-white shadow-lg rounded-2xl overflow-hidden hover:shadow-xl transition-all"
               >
-                <img
-                  src={
-                    doctor.image ||
-                    `https://randomuser.me/api/portraits/${
-                      index % 2 === 0 ? "men" : "women"
-                    }/${index % 99}.jpg`
-                  }
-                  alt={doctor.name}
-                  className="w-full h-56 object-cover"
-                />
+                <Link to={`/doctor/${doctor.id}`}>
+                  <img
+                    src={
+                      doctor.image ||
+                      `https://randomuser.me/api/portraits/${
+                        index % 2 === 0 ? "men" : "women"
+                      }/${index % 99}.jpg`
+                    }
+                    alt={doctor.name}
+                    className="w-full h-56 object-cover hover:opacity-90 transition-opacity cursor-pointer"
+                  />
+                </Link>
 
                 <div className="p-4 text-center">
                   <h3 className="text-xl font-semibold text-gray-800">
@@ -53,4 +55,3 @@ export default function DoctorsList({ doctors }) {
     </section>
   );
 }
-

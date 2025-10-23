@@ -1,25 +1,30 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import axios from "axios";
-import { Mail, Phone, MapPin, Calendar, Award, Clock, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 export default function DoctorProfile() {
   const { id } = useParams();
-  const [doctor, setDoctor] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const doctorFromState = location.state?.doctor; // data men DoctorsList
+  const [doctor, setDoctor] = useState(doctorFromState || null);
+  const [loading, setLoading] = useState(!doctorFromState); // si déjà data, ma3andnach loading
 
   useEffect(() => {
-    axios
-      .get(`https://68f9820fef8b2e621e7c4a09.mockapi.io/doctors/${id}`)
-      .then((response) => {
-        setDoctor(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Erreur:", error);
-        setLoading(false);
-      });
-  }, [id]);
+    if (!doctorFromState) {
+      setLoading(true);
+      axios
+        .get(`https://68f9820fef8b2e621e7c4a09.mockapi.io/doctors/${id}`)
+        .then((response) => {
+          setDoctor(response.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Erreur:", error);
+          setLoading(false);
+        });
+    }
+  }, [id, doctorFromState]);
 
   if (loading) {
     return (
@@ -85,7 +90,8 @@ export default function DoctorProfile() {
               </div>
 
               <Link
-                to={`/reservation-form?doctorId=${id}`}
+                to={`/reservation-form?doctorId=${doctor.id}`}
+                state={{ doctor }} // passer data f form
                 className="mt-4 md:mt-0 bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all shadow-lg"
               >
                 Prendre RDV
@@ -93,8 +99,7 @@ export default function DoctorProfile() {
             </div>
           </div>
 
-          {/* باقي المعلومات */}
-          {/* (contact + qualifications + description كما عندك أصلاً) */}
+          {/* Autres informations comme contact, qualifications, etc. */}
         </div>
       </div>
     </div>
