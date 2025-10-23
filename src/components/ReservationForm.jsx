@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 export default function ReservationForm() {
   const [searchParams] = useSearchParams();
@@ -28,7 +29,7 @@ export default function ReservationForm() {
     storedReservations.push(formData);
     localStorage.setItem("reservations", JSON.stringify(storedReservations));
 
-    alert("Your reservation has been submitted!");
+    alert("Votre réservation a été soumise avec succès !");
     setFormData({
       name: "",
       email: "",
@@ -42,136 +43,162 @@ export default function ReservationForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-lg overflow-hidden">
-      <div className="text-2xl py-4 px-6 bg-gray-900 text-white text-center font-bold uppercase">
-        Reservation Form
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-12 px-4">
+      <div className="max-w-2xl mx-auto">
+        <Link
+          to="/reservation"
+          className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold mb-6 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Retour à la liste
+        </Link>
+
+        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 py-8 px-8 text-center">
+            <h1 className="text-3xl font-bold text-white">
+              Formulaire de Réservation
+            </h1>
+            <p className="text-blue-100 mt-2">
+              Réservez votre consultation en ligne
+            </p>
+          </div>
+
+          {/* Form */}
+          <form className="py-8 px-8" onSubmit={handleSubmit}>
+            <input type="hidden" id="doctorId" value={formData.doctorId} />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              {/* Name */}
+              <div>
+                <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">
+                  Nom complet
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Votre nom complet"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all"
+                  required
+                />
+              </div>
+
+              {/* Email */}
+              <div>
+                <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="votre@email.com"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              {/* Phone */}
+              <div>
+                <label htmlFor="phone" className="block text-gray-700 font-semibold mb-2">
+                  Téléphone
+                </label>
+                <input
+                  id="phone"
+                  type="tel"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="Votre numéro de téléphone"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all"
+                  required
+                />
+              </div>
+
+              {/* Service */}
+              <div>
+                <label htmlFor="service" className="block text-gray-700 font-semibold mb-2">
+                  Type de consultation
+                </label>
+                <select
+                  id="service"
+                  value={formData.service}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all appearance-none cursor-pointer"
+                  required
+                >
+                  <option value="">Sélectionnez le type</option>
+                  <option value="consultation_generale">Consultation générale</option>
+                  <option value="consultation_specialiste">Consultation spécialiste</option>
+                  <option value="urgence">Urgence</option>
+                  <option value="suivi">Suivi médical</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              {/* Date */}
+              <div>
+                <label htmlFor="date" className="block text-gray-700 font-semibold mb-2">
+                  Date
+                </label>
+                <input
+                  id="date"
+                  type="date"
+                  value={formData.date}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all"
+                  required
+                />
+              </div>
+
+              {/* Time */}
+              <div>
+                <label htmlFor="time" className="block text-gray-700 font-semibold mb-2">
+                  Heure
+                </label>
+                <input
+                  id="time"
+                  type="time"
+                  value={formData.time}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Message */}
+            <div className="mb-8">
+              <label htmlFor="message" className="block text-gray-700 font-semibold mb-2">
+                Message additionnel
+              </label>
+              <textarea
+                id="message"
+                rows="4"
+                placeholder="Informations supplémentaires ou symptômes..."
+                value={formData.message}
+                onChange={handleChange}
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all resize-none"
+              />
+            </div>
+
+            {/* Submit */}
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-12 py-4 rounded-xl font-bold hover:shadow-lg hover:scale-105 transition-all w-full md:w-auto"
+              >
+                Confirmer la réservation
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-      <form className="py-4 px-6" onSubmit={handleSubmit}>
-        <input type="hidden" id="doctorId" value={formData.doctorId} />
-
-        {/* Name */}
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
-            Name
-          </label>
-          <input
-            id="name"
-            type="text"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Enter your name"
-            className="shadow border rounded w-full py-2 px-3 text-gray-700"
-            required
-          />
-        </div>
-
-        {/* Email */}
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter your email"
-            className="shadow border rounded w-full py-2 px-3 text-gray-700"
-            required
-          />
-        </div>
-
-        {/* Phone */}
-        <div className="mb-4">
-          <label htmlFor="phone" className="block text-gray-700 font-bold mb-2">
-            Phone Number
-          </label>
-          <input
-            id="phone"
-            type="tel"
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="Enter your phone number"
-            className="shadow border rounded w-full py-2 px-3 text-gray-700"
-            required
-          />
-        </div>
-
-        {/* Date */}
-        <div className="mb-4">
-          <label htmlFor="date" className="block text-gray-700 font-bold mb-2">
-            Date
-          </label>
-          <input
-            id="date"
-            type="date"
-            value={formData.date}
-            onChange={handleChange}
-            className="shadow border rounded w-full py-2 px-3 text-gray-700"
-            required
-          />
-        </div>
-
-        {/* Time */}
-        <div className="mb-4">
-          <label htmlFor="time" className="block text-gray-700 font-bold mb-2">
-            Time
-          </label>
-          <input
-            id="time"
-            type="time"
-            value={formData.time}
-            onChange={handleChange}
-            className="shadow border rounded w-full py-2 px-3 text-gray-700"
-            required
-          />
-        </div>
-
-        {/* Service / Guests */}
-        <div className="mb-4">
-          <label htmlFor="service" className="block text-gray-700 font-bold mb-2">
-            Number of Guests
-          </label>
-          <select
-            id="service"
-            value={formData.service}
-            onChange={handleChange}
-            className="shadow border rounded w-full py-2 px-3 text-gray-700"
-            required
-          >
-            <option value="">Select number of guests</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4+</option>
-          </select>
-        </div>
-
-        {/* Message */}
-        <div className="mb-4">
-          <label htmlFor="message" className="block text-gray-700 font-bold mb-2">
-            Special Requests
-          </label>
-          <textarea
-            id="message"
-            rows="4"
-            placeholder="Enter any additional information"
-            value={formData.message}
-            onChange={handleChange}
-            className="shadow border rounded w-full py-2 px-3 text-gray-700"
-          />
-        </div>
-
-        {/* Submit */}
-        <div className="flex items-center justify-center mb-4">
-          <button
-            type="submit"
-            className="bg-gray-900 text-white py-2 px-4 rounded hover:bg-gray-800"
-          >
-            Reserve Table
-          </button>
-        </div>
-      </form>
     </div>
   );
 }
