@@ -1,29 +1,92 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Menu, X, Heart, ChevronDown } from "lucide-react";
 
 export default function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const navItems = [
-    { item: "Home", path: "/" },
+    { item: "Accueil", path: "/" },
     { item: "Services", path: "/Services" },
-    { item: "Reservation", path: "/Reservation" },
+    { item: "Réservation", path: "/Reservation" },
+    { item: "À propos", path: "/About" },
     { item: "Contact", path: "/Contact" },
-    { item: "About", path: "/About" },
   ];
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <div className="text-2xl font-bold text-gray-800 cursor-pointer">
-          LOGO
-        </div>
-        <nav>
-          <ul className="flex space-x-8 text-gray-700 font-medium">
+    <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
+      <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="flex justify-between items-center">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2 group">
+            <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-2 rounded-xl group-hover:shadow-lg transition-all">
+              <Heart className="w-6 h-6 text-white" />
+            </div>
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 text-transparent bg-clip-text">
+              MediCare
+            </span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-1">
             {navItems.map((nav, i) => (
-              <li key={i} className="hover:text-blue-600 transition-colors duration-300">
-                <Link to={nav.path}>{nav.item}</Link>
-              </li>
+              <Link
+                key={i}
+                to={nav.path}
+                className="px-4 py-2 text-gray-700 font-medium rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-all"
+              >
+                {nav.item}
+              </Link>
             ))}
-          </ul>
-        </nav>
+          </nav>
+
+          {/* CTA Button Desktop */}
+          <div className="hidden lg:flex items-center gap-4">
+            <Link
+              to="/reservation"
+              className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-lg hover:scale-105 transition-all"
+            >
+              Prendre RDV
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden mt-4 pb-4 border-t border-gray-100 pt-4">
+            <nav className="flex flex-col gap-2">
+              {navItems.map((nav, i) => (
+                <Link
+                  key={i}
+                  to={nav.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-4 py-3 text-gray-700 font-medium rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-all"
+                >
+                  {nav.item}
+                </Link>
+              ))}
+              <Link
+                to="/reservation"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-lg text-center mt-2"
+              >
+                Prendre RDV
+              </Link>
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   );
