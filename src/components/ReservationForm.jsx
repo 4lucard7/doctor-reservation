@@ -22,10 +22,39 @@ export default function ReservationForm() {
     setFormData({ ...formData, [id]: value });
   };
 
+  const validateForm = () => {
+    const required = ["name", "email", "phone", "date", "time", "service"];
+    for (const field of required) {
+      const val = formData[field];
+      if (!val || (typeof val === "string" && val.trim() === "")) {
+        alert("Veuillez remplir tous les champs obligatoires.");
+        return false;
+      }
+    }
+    return true;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
 
     const storedReservations = JSON.parse(localStorage.getItem("reservations")) || [];
+
+    const isDuplicate = storedReservations.some((r) => {
+      // same doctor, same date & time and same person (by email or phone or name)
+      return (
+        String(r.doctorId) === String(formData.doctorId) &&
+        r.date === formData.date &&
+        r.time === formData.time &&
+        (r.email === formData.email || r.phone === formData.phone || r.name === formData.name)
+      );
+    });
+
+    if (isDuplicate) {
+      alert("Une réservation existe déjà pour cette personne à la même date et heure.");
+      return;
+    }
+
     storedReservations.push(formData);
     localStorage.setItem("reservations", JSON.stringify(storedReservations));
 
@@ -66,7 +95,7 @@ export default function ReservationForm() {
 
           {/* Form */}
           <form className="py-8 px-8" onSubmit={handleSubmit}>
-            <input type="hidden" id="doctorId" value={formData.doctorId} />
+            <input type="hidden" id="doctorId" value={formData.doctorId} readOnly />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               {/* Name */}
