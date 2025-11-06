@@ -2,21 +2,18 @@
 
 Une application web moderne pour la réservation de consultations médicales en ligne.
 
-![React](https://img.shields.io/badge/React-18.2-blue)
-![Tailwind](https://img.shields.io/badge/Tailwind-3.4-38bdf8)
-![Vite](https://img.shields.io/badge/Vite-5.0-646cff)
-![License](https://img.shields.io/badge/License-MIT-green)
+![MediCare Banner](https://via.placeholder.com/1200x400/2563eb/ffffff?text=MediCare)
 
-##  Fonctionnalités
+## Fonctionnalités
 
--  **Recherche avancée** - Trouvez des médecins par nom ou spécialité
--  **Réservation en ligne** - Prenez rendez-vous en quelques clics
--  **Profils détaillés** - Consultez les informations complètes des médecins
--  **Design responsive** - Interface adaptée à tous les appareils
--  **UI/UX moderne** - Design élégant avec animations fluides
--  **Performance optimisée** - Chargement rapide et expérience fluide
+- **Recherche avancée** - Trouvez des médecins par nom ou spécialité
+- **Réservation en ligne** - Prenez rendez-vous en quelques clics
+- **Profils détaillés** - Consultez les informations complètes des médecins
+- **Design responsive** - Interface adaptée à tous les appareils
+- **UI/UX moderne** - Design élégant avec animations fluides
+- **Performance optimisée** - Chargement rapide et expérience fluide
 
-##  Technologies utilisées
+## Technologies utilisées
 
 - **Frontend Framework:** React 18.2
 - **Routing:** React Router v6
@@ -101,7 +98,7 @@ npm run preview
 npm run lint
 ```
 
-## Palette de couleurs
+## 🎨 Palette de couleurs
 
 - **Primaire:** `#2563eb` (Bleu)
 - **Secondaire:** `#4f46e5` (Indigo)
@@ -116,6 +113,35 @@ L'application utilise MockAPI.io pour simuler les données backend:
 
 **Endpoint:** `https://68f9820fef8b2e621e7c4a09.mockapi.io/doctors`
 
+### Exemple de données médecin:
+
+```json
+{
+  "id": "1",
+  "name": "Dr. Amal Benkirane",
+  "specialty": "Cardiologue",
+  "photo": "https://randomuser.me/api/portraits/women/44.jpg",
+  "description": "Spécialiste en cardiologie...",
+  "email": "amal.benkirane@medicare.ma",
+  "phone": "+212 6 12 34 56 78",
+  "location": "Casablanca, Maroc",
+  "experience": "10 ans",
+  "education": "Doctorat en Médecine",
+  "languages": ["Français", "Arabe", "Anglais"],
+  "availability": "Lun - Ven: 9h - 18h"
+}
+```
+
+## Configuration
+
+### Variables d'environnement
+
+Créez un fichier `.env` à la racine:
+
+```env
+VITE_API_URL=https://68f9820fef8b2e621e7c4a09.mockapi.io
+```
+
 ## Pages de l'application
 
 1. **Accueil** (`/`) - Page d'accueil avec hero section
@@ -126,16 +152,16 @@ L'application utilise MockAPI.io pour simuler les données backend:
 6. **À propos** (`/about`) - Information sur MediCare
 7. **Contact** (`/contact`) - Formulaire de contact
 
-## Fonctionnalités clés
+## Fonctionnalités à venir
 
-✅ **Recherche dynamique** avec filtres
-✅ **Animations fluides** et transitions
-✅ **Design responsive** mobile-first
-✅ **États de chargement** avec spinners
-✅ **Validation de formulaires**
-✅ **Navigation intuitive** avec React Router
-✅ **API intégration** avec Axios
-✅ **Sans localStorage** (données en mémoire)
+- [ ] Authentification utilisateur
+- [ ] Gestion des rendez-vous
+- [ ] Notifications par email
+- [ ] Chat en direct avec les médecins
+- [ ] Système de paiement en ligne
+- [ ] Application mobile (React Native)
+- [ ] Téléconsultation vidéo
+- [ ] Historique médical
 
 ## Contribution
 
@@ -149,11 +175,11 @@ Les contributions sont les bienvenues! Pour contribuer:
 
 ## Licence
 
-Ce projet est sous licence MIT.
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ## Auteurs
 
-- **Mohamed Meftouh** - *Développeur Principal*
+- **Mohamed Meftouh** - *Développeur Principal* - [@votre-username](https://github.com/votre-username)
 
 ## Remerciements
 
@@ -166,8 +192,8 @@ Ce projet est sous licence MIT.
 ## Support
 
 Pour toute question ou support:
-- 📧 Email: mohamedmaftouh0@medicare.ma
-- 🐛 Issues: GitHub Issues
+- Email: mohamedmaftouh@gmail.com
+- Issues: [GitHub Issues](https://github.com/votre-username/medicare-reservation/issues)
 
 ---
 

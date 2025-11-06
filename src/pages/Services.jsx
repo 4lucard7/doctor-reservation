@@ -65,7 +65,7 @@ export default function Services() {
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-700 opacity-10"></div>
         <div className="container mx-auto px-6 relative z-10">
-          <div className="text-center max-w-3xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto animate-fade-in">
             <h1 className="text-5xl font-bold text-gray-800 mb-6">
               Nos <span className="bg-gradient-to-r from-blue-600 to-indigo-600 text-transparent bg-clip-text">Services Médicaux</span>
             </h1>
@@ -84,6 +84,7 @@ export default function Services() {
               <div
                 key={index}
                 className="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden group"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Header avec gradient */}
                 <div className={`h-32 bg-gradient-to-r ${service.bg} relative overflow-hidden`}>

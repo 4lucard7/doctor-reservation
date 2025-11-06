@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Clock, Send, ArrowRight } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Send, ArrowRight, CheckCircle } from "lucide-react";
 
-export default function ContactUs(){
+export default function ContactUs() {
   const [form, setForm] = useState({
     name: '',
     email: '',
     subject: '',
     message: '',
   });
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -17,9 +18,12 @@ export default function ContactUs(){
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Contact Form Submitted:', form);
-    alert('Votre message a été envoyé avec succès !');
-    setForm({ name: '', email: '', subject: '', message: '' });
+    console.log('Formulaire de contact soumis:', form);
+    setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      setForm({ name: '', email: '', subject: '', message: '' });
+    }, 3000);
   };
 
   const contactInfo = [
@@ -49,6 +53,24 @@ export default function ContactUs(){
     }
   ];
 
+  if (submitted) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
+        <div className="bg-white rounded-3xl shadow-2xl p-12 max-w-md w-full text-center">
+          <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle className="w-10 h-10 text-green-600" />
+          </div>
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+            Message envoyé!
+          </h2>
+          <p className="text-gray-600">
+            Merci pour votre message. Notre équipe vous répondra dans les plus brefs délais.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       {/* Hero Section */}
@@ -68,9 +90,25 @@ export default function ContactUs(){
         </div>
       </section>
 
-      {/* Contact Content */}
+      {/* Contact Cards */}
       <section className="py-16">
         <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            {contactInfo.map((info, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group"
+              >
+                <div className={`bg-gradient-to-r ${info.color} w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                  <info.icon className="w-7 h-7 text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-gray-800 mb-2">{info.title}</h3>
+                <p className="text-gray-600">{info.content}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Main Content */}
           <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2">
               {/* Contact Information */}
@@ -198,7 +236,7 @@ export default function ContactUs(){
                 <MapPin className="w-16 h-16 text-blue-600 mx-auto mb-4" />
                 <h3 className="text-2xl font-bold text-gray-800 mb-2">Notre localisation</h3>
                 <p className="text-gray-600">Casablanca, Maroc</p>
-                <p className="text-gray-500">Carte interactive disponible</p>
+                <p className="text-gray-500 text-sm mt-2">Carte interactive disponible prochainement</p>
               </div>
             </div>
           </div>
@@ -206,5 +244,4 @@ export default function ContactUs(){
       </section>
     </div>
   );
-};
-
+}

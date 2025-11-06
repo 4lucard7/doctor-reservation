@@ -1,17 +1,20 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X, Heart, ChevronDown } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X, Heart } from "lucide-react";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   const navItems = [
     { item: "Accueil", path: "/" },
-    { item: "Services", path: "/Services" },
-    { item: "Réservation", path: "/Reservation" },
-    { item: "À propos", path: "/About" },
-    { item: "Contact", path: "/Contact" },
+    { item: "Services", path: "/services" },
+    { item: "Réservation", path: "/reservation" },
+    { item: "About", path: "/about" },
+    { item: "Contact", path: "/contact" },
   ];
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
@@ -19,7 +22,7 @@ export default function Header() {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-2 rounded-xl group-hover:shadow-lg transition-all">
+            <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-2 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all">
               <Heart className="w-6 h-6 text-white" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 text-transparent bg-clip-text">
@@ -33,7 +36,11 @@ export default function Header() {
               <Link
                 key={i}
                 to={nav.path}
-                className="px-4 py-2 text-gray-700 font-medium rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-all"
+                className={`px-4 py-2 font-medium rounded-lg transition-all ${
+                  isActive(nav.path)
+                    ? "bg-blue-50 text-blue-600"
+                    : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                }`}
               >
                 {nav.item}
               </Link>
@@ -65,14 +72,18 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-4 pb-4 border-t border-gray-100 pt-4">
+          <div className="lg:hidden mt-4 pb-4 border-t border-gray-100 pt-4 animate-fade-in">
             <nav className="flex flex-col gap-2">
               {navItems.map((nav, i) => (
                 <Link
                   key={i}
                   to={nav.path}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-3 text-gray-700 font-medium rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-all"
+                  className={`px-4 py-3 font-medium rounded-lg transition-all ${
+                    isActive(nav.path)
+                      ? "bg-blue-50 text-blue-600"
+                      : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                  }`}
                 >
                   {nav.item}
                 </Link>
