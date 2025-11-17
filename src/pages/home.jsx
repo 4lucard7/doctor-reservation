@@ -47,7 +47,7 @@ export default function Home() {
       color: "from-orange-500 to-red-600"
     },
   ];
-
+ //stats (api to make it dynamique)
   const stats = [
     { value: "10K+", label: "Patients satisfaits", icon: Users },
     { value: "100+", label: "Médecins experts", icon: Stethoscope },

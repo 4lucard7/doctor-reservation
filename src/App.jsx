@@ -6,6 +6,8 @@ import Header from './components/Header'
 import DoctorProfile from './components/DoctorProfile'
 import Footer from './components/Footer'
 import ReservationForm from './components/ReservationForm'
+import ScrollToTop from './components/ScrollToTop'
+import ReservationSuccess from './components/ReservationSuccess'
 
 // Pages
 import Home from './pages/home'
@@ -20,17 +22,16 @@ function App() {
   return (
     <>
       <Header />
+      <ScrollToTop/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/reservation" element={<Reservation />} />
         <Route path="/Contact" element={<ContactUs />} />
         <Route path="/About" element={<AboutCompany />} />
         <Route path="/Services" element={<Services />} />
-
-
         <Route path="/doctor/:id" element={<DoctorProfile />} />
         <Route path="/reservation-form" element={<ReservationForm />} />
-        
+        <Route path="/reservation-success" element={<ReservationSuccess />} /> 
       </Routes>
       <Footer/>
     </>
